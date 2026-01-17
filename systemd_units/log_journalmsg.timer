@@ -1,0 +1,11 @@
+[Unit]
+Description=Trigger Dmesg log capture every minute
+
+[Timer]
+OnBootSec=1min
+OnUnitActiveSec=60s
+RandomizedDelaySec=5s
+AccuracySec=1s
+
+[Install]
+WantedBy=timers.target
