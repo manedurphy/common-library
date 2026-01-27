@@ -61,7 +61,8 @@ libccsp_common_la_CPPFLAGS = \
 	-I$(top_srcdir)/util_api/stun/include \
 	-I$(top_srcdir)/util_api/http/include \
 	-I$(top_srcdir)/util_api/http/utilities/include \
-	-I$(top_srcdir)/util_api/asn.1/include
+	-I$(top_srcdir)/util_api/asn.1/include \
+	-I$(top_srcdir)/ccsp-dml-lib
 
 libccsp_common_la_LDFLAGS = -shared -fPIC -lssl -lcrypto -lrbus
 libccsp_common_la_SOURCES =
@@ -240,7 +241,8 @@ libccsp_common_la_DEPENDENCIES = \
 	util_api/asn.1/components/asn1_x509/libCcspCommonLibrary_asn1_x509.la \
 	util_api/asn.1/components/asn1_basic/libCcspCommonLibrary_asn1_basic.la \
 	util_api/asn.1/components/al_pkcs12/libCcspCommonLibrary_al_pkcs12.la \
-	dm_pack/libCcspCommonLibrary_dm_pack.la
+	dm_pack/libCcspCommonLibrary_dm_pack.la \
+    ccsp-dml-lib/libCcspCommonLibrary_CcspDmlLib.la
 
 
 libccsp_common_la_LIBADD = $(libccsp_common_la_DEPENDENCIES)
