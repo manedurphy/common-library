@@ -82,7 +82,8 @@
       { "source": "source/util_api/web/include", "destination": "$HOME/usr/include/rdkb" },
       { "source": "source/util_api/asn.1/include", "destination": "$HOME/usr/include/rdkb" },
       { "source": "source/debug_api/include", "destination": "$HOME/usr/include/rdkb" },
-      { "source": "source/dm_pack", "destination": "$HOME/usr/include/rdkb" }
+      { "source": "source/dm_pack", "destination": "$HOME/usr/include/rdkb" },
+      { "source": "source/ccsp-dml-lib", "destination": "$HOME/usr/include/rdkb" }
     ],
 
     "source_patches": [

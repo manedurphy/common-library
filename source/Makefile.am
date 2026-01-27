@@ -16,7 +16,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##########################################################################
-SUBDIRS = cosa debug_api ccsp util_api dm_pack
+SUBDIRS = cosa debug_api ccsp util_api dm_pack ccsp-dml-lib
 
 if WITH_GTEST_SUPPORT
 SUBDIRS += test
@@ -61,8 +61,7 @@ libccsp_common_la_CPPFLAGS = \
 	-I$(top_srcdir)/util_api/stun/include \
 	-I$(top_srcdir)/util_api/http/include \
 	-I$(top_srcdir)/util_api/http/utilities/include \
-	-I$(top_srcdir)/util_api/asn.1/include \
-	-I$(top_srcdir)/ccsp-dml-lib
+	-I$(top_srcdir)/util_api/asn.1/include
 
 libccsp_common_la_LDFLAGS = -shared -fPIC -lssl -lcrypto -lrbus
 libccsp_common_la_SOURCES =
