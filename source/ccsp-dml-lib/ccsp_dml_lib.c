@@ -30,7 +30,7 @@ static void process_object_recursive(cJSON *obj, const char *path,
       // Process the list of parameter definitions for a parent object
 
       if (!cJSON_IsArray(child)) {
-        fprintf(stderr, "List_Of_Def is not an array for %s\n", path);
+        CcspTraceError(("List_Of_Def is not an array for %s\n", path));
         continue;
       }
 
@@ -64,7 +64,7 @@ static void process_object_recursive(cJSON *obj, const char *path,
         cJSON *type_obj = cJSON_GetObjectItem(param, "type");
 
         if (!type_obj || !cJSON_IsString(type_obj)) {
-          fprintf(stderr, "Missing or invalid type for %s\n", full_param_name);
+          CcspTraceError(("Missing or invalid type for %s\n", full_param_name));
           continue;
         }
 
@@ -90,14 +90,14 @@ static void process_object_recursive(cJSON *obj, const char *path,
         dataElement.cbTable.getHandler = get_handler;
         dataElement.cbTable.setHandler = writable ? set_handler : NULL;
 
-        fprintf(stderr, "Registering: %s (writable=%d)\n", full_param_name,
-                writable);
+        CcspTraceInfo(("Registering RBUS element: %s (writable=%d)\n",
+                       full_param_name, writable));
 
         // Register element with RBUS
         rbusError_t rc = rbus_regDataElements(g_rbus_handle, 1, &dataElement);
         if (rc != RBUS_ERROR_SUCCESS) {
-          fprintf(stderr, "Failed to register %s: %s\n", full_param_name,
-                  rbusError_ToString(rc));
+          CcspTraceError(("Failed to register %s: %s\n", full_param_name,
+                          rbusError_ToString(rc)));
           continue;
         }
 
@@ -113,7 +113,7 @@ static void process_object_recursive(cJSON *obj, const char *path,
       parent_object_node_t *node =
           (parent_object_node_t *)malloc(sizeof(parent_object_node_t));
       if (node == NULL) {
-        fprintf(stderr, "Memory allocation failed for parent object node\n");
+        CcspTraceError(("Memory allocation failed for parent object node\n"));
         free(parent_object.parameters);
         return;
       }
@@ -148,15 +148,14 @@ int ccsp_dml_init(const char *component_name, const char *json_file_path,
 
   FILE *file = fopen(json_file_path, "r");
   if (!file) {
-    fprintf(stderr, "Error: Cannot open JSON config file: %s\n",
-            json_file_path);
+    CcspTraceError(("Cannot open JSON config file: %s\n", json_file_path));
     return -1;
   }
 
   fseek(file, 0, SEEK_END);
   long file_size = ftell(file);
   if (file_size < 0) {
-    fprintf(stderr, "Error: Failed to get file size\n");
+    CcspTraceError(("Failed to get file size for: %s\n", json_file_path));
     fclose(file);
     return -1;
   }
@@ -164,7 +163,7 @@ int ccsp_dml_init(const char *component_name, const char *json_file_path,
 
   char *json_buffer = (char *)malloc(file_size + 1);
   if (!json_buffer) {
-    fprintf(stderr, "Error: Memory allocation failed\n");
+    CcspTraceError(("Memory allocation failed for JSON buffer\n"));
     fclose(file);
     return -1;
   }
@@ -173,7 +172,7 @@ int ccsp_dml_init(const char *component_name, const char *json_file_path,
   fclose(file);
 
   if ((long)bytes_read != file_size) {
-    fprintf(stderr, "Error: Failed to read complete file\n");
+    CcspTraceError(("Failed to read complete JSON file: %s\n", json_file_path));
     free(json_buffer);
     return -1;
   }
@@ -189,12 +188,12 @@ int ccsp_dml_init(const char *component_name, const char *json_file_path,
     return -1;
   }
 
-  fprintf(stderr, "Successfully parsed JSON config file: %s\n", json_file_path);
+  CcspTraceInfo(("Successfully parsed JSON config file: %s\n", json_file_path));
 
   // Prepare linked list for parent objects
   parent_objects = malloc(sizeof(parent_object_node_t));
   if (parent_objects == NULL) {
-    fprintf(stderr, "Memory allocation failed for parent objects list\n");
+    CcspTraceError(("Memory allocation failed for parent objects list\n"));
     cJSON_Delete(root);
     free(json_buffer);
     return -1;
@@ -215,7 +214,7 @@ int ccsp_dml_init(const char *component_name, const char *json_file_path,
   cJSON_Delete(root);
   free(json_buffer);
 
-  fprintf(stderr, "CCSP component JSON config processing complete\n");
+  CcspTraceInfo(("CCSP component JSON config processing complete\n"));
   return 0;
 }
 
