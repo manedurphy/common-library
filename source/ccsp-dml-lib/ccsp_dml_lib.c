@@ -148,8 +148,9 @@ int ccsp_dml_init(const char *component_name, const char *json_file_path,
 
   FILE *file = fopen(json_file_path, "r");
   if (!file) {
+    int saved_errno = errno;
     CcspTraceError(("Cannot open JSON config file: path=%s err=%s\n",
-                    json_file_path, strerror(errno)));
+                    json_file_path, strerror(saved_errno)));
     return -1;
   }
 
