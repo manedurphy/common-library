@@ -16,7 +16,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##########################################################################
-SUBDIRS = cosa debug_api ccsp util_api dm_pack
+SUBDIRS = cosa debug_api ccsp util_api dm_pack ccsp-dml-lib
 
 if WITH_GTEST_SUPPORT
 SUBDIRS += test
@@ -240,7 +240,8 @@ libccsp_common_la_DEPENDENCIES = \
 	util_api/asn.1/components/asn1_x509/libCcspCommonLibrary_asn1_x509.la \
 	util_api/asn.1/components/asn1_basic/libCcspCommonLibrary_asn1_basic.la \
 	util_api/asn.1/components/al_pkcs12/libCcspCommonLibrary_al_pkcs12.la \
-	dm_pack/libCcspCommonLibrary_dm_pack.la
+	dm_pack/libCcspCommonLibrary_dm_pack.la \
+	ccsp-dml-lib/libCcspCommonLibrary_CcspDmlLib.la
 
 
 libccsp_common_la_LIBADD = $(libccsp_common_la_DEPENDENCIES)

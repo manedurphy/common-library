@@ -286,6 +286,7 @@ AC_CONFIG_FILES(
 	source/util_api/asn.1/Makefile
 	source/util_api/Makefile
 	source/dm_pack/Makefile
+	source/ccsp-dml-lib/Makefile
 	source/Makefile
 	Makefile
 
