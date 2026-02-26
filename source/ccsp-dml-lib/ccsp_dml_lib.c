@@ -240,6 +240,8 @@ void ccsp_dml_shutdown(void) {
 parent_object_t *get_parent_object(const char *name) {
   parent_object_node_t *current = parent_objects;
   while (current) {
+    CcspTraceDebug(("Checking parent object: %s against %s\n",
+                    current->parent.name, name));
     if (strcmp(current->parent.name, name) == 0) {
       return &current->parent;
     }
