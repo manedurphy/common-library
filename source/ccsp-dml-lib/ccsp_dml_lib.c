@@ -15,6 +15,7 @@ static void process_object_recursive(cJSON *obj, const char *path,
 
   parent_object_t parent_object;
   memset(parent_object.name, 0, sizeof(parent_object.name));
+  strncpy(parent_object.name, path, strlen(path));
   //     (parent_object_t *)malloc(sizeof(parent_object_t));
   // if (parent_object == NULL) {
   //   fprintf(stderr, "Memory allocation failed for parent object\n");
