@@ -244,10 +244,12 @@ parent_object_t *get_parent_object(const char *name) {
     CcspTraceDebug(("Checking parent object: %s against %s\n",
                     current->parent.name, name));
     if (strcmp(current->parent.name, name) == 0) {
+      CcspTraceInfo(("Found parent object: %s\n", name));
       return &current->parent;
     }
     current = current->next;
   }
 
+  CcspTraceError(("Parent object not found: %s\n", name));
   return NULL;
 }
